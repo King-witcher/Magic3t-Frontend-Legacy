@@ -8,6 +8,7 @@ async function get<T>(url: string): Promise<T> {
   return response.data
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function post<Response>(url: string, payload: any): Promise<Response> {
   const response = await axios.post<Response>(serverUrl + url, payload)
   return response.data

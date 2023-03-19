@@ -5,7 +5,6 @@ import { LoginContainer, Title } from './styles'
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
 
   function handleUsernameChange(username: string) {
     setUsername(username)
@@ -15,6 +14,7 @@ const LoginPage = () => {
     setPassword(password)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(e: any) {
     e.preventDefault()
   }

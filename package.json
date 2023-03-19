@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "lint": "eslint \"./src/**/*\" --fix"
   },
   "dependencies": {
     "@types/react": "^18.0.28",

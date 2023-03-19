@@ -28,6 +28,7 @@ const Input: FunctionComponent<InputProps> = ({value, onChange, label, password}
       setTyping(false)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function onChangeHandler(e: any) {
     setInputValue(e.target.value)
     if(onChange)

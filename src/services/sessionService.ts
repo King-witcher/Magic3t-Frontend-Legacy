@@ -1,4 +1,4 @@
-import { get, post } from './server'
+import { post } from './server'
 
 interface LoginParams {
   username: string
