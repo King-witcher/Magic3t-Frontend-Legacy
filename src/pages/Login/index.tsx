@@ -22,7 +22,7 @@ const LoginPage = () => {
   return (<>
     <LoginContainer>
       <Title>
-        Fazer Login
+        Iniciar sessão
       </Title>
       <form action="" onSubmit={handleSubmit}>
         <Input label='Nome de usuário' value={username} onChange={handleUsernameChange}/>
