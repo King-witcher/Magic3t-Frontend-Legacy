@@ -22,14 +22,32 @@ export const LoginContainer = styled.div`
     width: 100%;
     height: 4.0625rem;
     margin: 0.625rem 0;
-    outline: none;
+
+    background-color: #eee;
+    color: #000;
+    border: solid 2px #999;
+    border-radius: 7px;
 
     text-align: center;
     font-size: 1.4rem;
     font-weight: 100;
 
-    border: solid 2px #999;
-    border-radius: 7px;
+    transition: 200ms ease-in-out;
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    &:active:not([disabled]) {
+      background-color: #aaa;
+      transform: scale(0.95);
+    }
+    
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: progress;
+    }
 
     &:focus-visible {
       outline: none;

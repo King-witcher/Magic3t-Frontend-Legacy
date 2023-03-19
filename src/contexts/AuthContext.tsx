@@ -60,6 +60,10 @@ export const SessionContextProvider = ({ children }: IProps) => {
   }, [])
 
   async function login({ username, password }: ILoginParams) {
+    if (isLogged) {
+      return setError(`Mas vc ja ta logado como ${userData?.nickname} mano`)
+    }
+
     setIsLoading(true)
     const dat = await SessionService.login({ username, password })
     setIsLoading(false)

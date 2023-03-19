@@ -48,6 +48,7 @@ export const InputBox = styled.input`
   width: 100%;
   height: 4.0625rem;
   outline: none;
+  transition: 200ms ease-in-out;
 
   text-align: center;
   font-size: 1.4rem;
@@ -59,5 +60,10 @@ export const InputBox = styled.input`
 
   &:focus-visible {
     border-color: #000;
+  }
+
+  &:disabled {
+    color: #999;
+    background-color: #eee;
   }
 `
