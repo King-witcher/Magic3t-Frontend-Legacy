@@ -1,16 +1,21 @@
-import { post } from './server'
+import { get, post } from './server'
 
 interface LoginParams {
   username: string
   password: string
 }
 
-interface LoginResponse {
-  success: boolean
+type LoginResponse = {
+  success: true
+  token: string
+} | {
+  success: false
 }
 
-async function login(params: LoginParams) {
+export async function login(params: LoginParams) {
   return await post<LoginResponse>('/login', params)
 }
 
-export { login }
+export async function getSessionInfo(token: string) {
+  return await get(`/session?token=${token}`)
+}

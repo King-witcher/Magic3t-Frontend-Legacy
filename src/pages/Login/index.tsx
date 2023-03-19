@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import Input from '../../components/Input'
+import { useSessionContext } from '../../contexts/AuthContext'
 import { LoginContainer, Title } from './styles'
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const { login } = useSessionContext()
 
   function handleUsernameChange(username: string) {
     setUsername(username)
@@ -17,6 +20,7 @@ const LoginPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(e: any) {
     e.preventDefault()
+    login({ username, password })
   }
 
   return (<>
