@@ -16,6 +16,16 @@ export async function login(params: LoginParams) {
   return await post<LoginResponse>('/login', params)
 }
 
-export async function getSessionInfo(token: string) {
-  return await get(`/session?token=${token}`)
+type SessionInfo = {
+  status: 'authenticated'
+  userData: {
+    nickname: string
+  }
+} | {
+  status: 'unauthenticated'
+  userData: undefined
+}
+
+export async function getSessionInfo(token: string): Promise<SessionInfo> {
+  return await get<SessionInfo>(`/session?token=${token}`)
 }

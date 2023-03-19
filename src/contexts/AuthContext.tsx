@@ -11,16 +11,16 @@ interface ILoginParams {
   password: string
 }
 
+interface UserData {
+  nickname: string
+}
+
 interface ISessionContextData {
   login(params: ILoginParams): Promise<void>
   logout(): Promise<void>
   isLogged: boolean
 
-  userData?: {
-    username: string
-    nickname: string
-    rating: number
-  }
+  userData: UserData | null
 }
 
 const SessionContext = createContext<ISessionContextData>({} as ISessionContextData)
@@ -29,6 +29,32 @@ export const SessionContextProvider = ({ children }: IProps) => {
 
   const [isLogged, setIsLogged] = useState(false)
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'))
+  const [userData, setUserData] = useState<UserData | null>(null)
+
+  // Sincroniza o token do localStorage com o estado
+  useEffect(() => {
+    if (token)
+      localStorage.setItem('token', token)
+    else
+      localStorage.removeItem('token')
+  }, [token])
+
+  // Verifica a sessão relacionada ao token atual.
+  useEffect(() => {
+    if (token) {
+      SessionService.getSessionInfo(token).then(response => {
+        // Deleta o token caso não seja mais válido
+        if (response.status === 'unauthenticated')
+          localStorage.removeItem('token')
+        // Armazena informações do usuário
+        else {
+          setUserData({
+            nickname: response.userData.nickname
+          })
+        }
+      })
+    }
+  }, [])
 
   async function login({ username, password }: ILoginParams) {
     const dat = await SessionService.login({ username, password })
@@ -39,26 +65,12 @@ export const SessionContextProvider = ({ children }: IProps) => {
     }
   }
 
-  useEffect(() => {
-    if (token)
-      localStorage.setItem('token', token)
-    else
-      localStorage.removeItem('token')
-  }, [token])
-
-  useEffect(() => {
-    if (token) {
-      const sessionData = SessionService.getSessionInfo(token)
-      console.log(sessionData)
-    }
-  }, [])
-
   async function logout() {
     //a
   }
 
   return (
-    <SessionContext.Provider value={{ login, isLogged, logout }}>
+    <SessionContext.Provider value={{ login, isLogged, logout, userData }}>
       {children}
     </SessionContext.Provider>
   )
