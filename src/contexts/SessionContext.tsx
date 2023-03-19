@@ -26,10 +26,15 @@ const sessionContext = createContext<ISessionContextData>({} as ISessionContextD
 
 export const SessionContextProvider = ({ children }: IProps) => {
 
+  function login({username, password}: ILoginParams) {
 
-  return <sessionContext.Provider value={{} as ISessionContextData}>
-    {children}
-  </sessionContext.Provider>
+  }
+
+  return (
+    <sessionContext.Provider value={{} as ISessionContextData}>
+      {children}
+    </sessionContext.Provider>
+  )
 }
 
 export function useSessionContext() {
