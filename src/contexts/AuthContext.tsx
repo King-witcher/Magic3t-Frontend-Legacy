@@ -19,7 +19,8 @@ interface ISessionContextData {
   login(params: ILoginParams): Promise<void>
   logout(): Promise<void>
   isLogged: boolean
-
+  isLoading: boolean
+  error: string | null
   userData: UserData | null
 }
 
@@ -30,6 +31,8 @@ export const SessionContextProvider = ({ children }: IProps) => {
   const [isLogged, setIsLogged] = useState(false)
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'))
   const [userData, setUserData] = useState<UserData | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // Sincroniza o token do localStorage com o estado
   useEffect(() => {
@@ -57,11 +60,15 @@ export const SessionContextProvider = ({ children }: IProps) => {
   }, [])
 
   async function login({ username, password }: ILoginParams) {
+    setIsLoading(true)
     const dat = await SessionService.login({ username, password })
-    console.log(dat)
+    setIsLoading(false)
     if (dat.success) {
       setIsLogged(true)
       setToken(dat.token)
+      setError(null)
+    } else {
+      setError('Não foi possível iniciar sessão.')
     }
   }
 
@@ -70,7 +77,7 @@ export const SessionContextProvider = ({ children }: IProps) => {
   }
 
   return (
-    <SessionContext.Provider value={{ login, isLogged, logout, userData }}>
+    <SessionContext.Provider value={{ login, isLogged, logout, userData, isLoading, error }}>
       {children}
     </SessionContext.Provider>
   )

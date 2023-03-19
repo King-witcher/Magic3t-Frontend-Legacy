@@ -1,15 +1,13 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { Container, InputBox, MiddleFieldLabel, TopFieldLabel } from './styles'
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value?: string
-  onChange?: (value: string) => void
   label?: string
   password?: boolean
 }
  
-const Input: FunctionComponent<InputProps> = ({value, onChange, label, password}) => {
-
+const Input: FunctionComponent<InputProps> = ({ value, onChange, label, password, ...rest }) => {
   const [typing, setTyping] = useState(false)
   const [inputValue, setInputValue] = useState(value || '')
 
@@ -19,11 +17,11 @@ const Input: FunctionComponent<InputProps> = ({value, onChange, label, password}
       setTyping(true)
   }, [value])
 
-  function onFocus() {
+  function onFocusHandler() {
     setTyping(true)
   }
 
-  function onBlur() {
+  function onBlurHandler() {
     if (!inputValue.length)
       setTyping(false)
   }
@@ -32,12 +30,12 @@ const Input: FunctionComponent<InputProps> = ({value, onChange, label, password}
   function onChangeHandler(e: any) {
     setInputValue(e.target.value)
     if(onChange)
-      onChange(e.target.value)
+      onChange(e)
   }
 
   return ( 
     <Container>
-      <InputBox type={password ? 'password' : 'text'} onFocus={onFocus} onBlur={onBlur} value={inputValue} onChange={onChangeHandler}/>
+      <InputBox {...rest} type={password ? 'password' : 'text'} onFocus={onFocusHandler} onBlur={onBlurHandler} value={inputValue} onChange={onChangeHandler} />
       <TopFieldLabel enabled={typing}>{ label }</TopFieldLabel>
       <MiddleFieldLabel enabled={!typing}>{ label }</MiddleFieldLabel>
     </Container>

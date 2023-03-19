@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-// const serverUrl = process.env.ENVIRONMENT === 'production' ? 'http://127.0.0.1:3001/' : 'http://127.0.0.1:3001/'
-const SERVER_URL = process.env.REACT_APP_STAGE === 'dev' ? 'http://localhost:4000' : 'https://magic3t-backend.onrender.com'
+const SERVER_URL = process.env.REACT_APP_STAGE === 'production' ? 'https://magic3t-backend.onrender.com' : 'http://localhost:4000'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function get<Response = object>(url: string): Promise<Response> {

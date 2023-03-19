@@ -1,9 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
-html {
+  html {
     scroll-behavior: smooth;
     font-size: 16px;
+    font-family: sans-serif;
     @media (min-width: 3201px) {
       font-size: 165.24%;
     }

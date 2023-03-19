@@ -43,3 +43,8 @@ export const Title = styled.div`
   margin: 2rem;
   font-weight: 600;
 `
+
+export const ErrorLabel = styled.span`
+  font-size: 0.8rem;
+  color: #e01030;
+`
