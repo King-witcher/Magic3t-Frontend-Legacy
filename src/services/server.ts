@@ -5,7 +5,7 @@ const SERVER_URL = 'http://localhost:4000'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function get<Response = any>(url: string): Promise<Response> {
-  const response = await axios.get<T>(SERVER_URL + url, {
+  const response = await axios.get<Response>(SERVER_URL + url, {
     validateStatus: () => true
   })
   return response.data
