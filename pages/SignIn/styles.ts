@@ -32,10 +32,12 @@ export const LoginContainer = styled.div`
     font-size: 1.4rem;
     font-weight: 100;
 
+    cursor: pointer;
+
     transition: 200ms ease-in-out;
 
     &:hover {
-      background-color: #eee;
+      background-color: #fff;
     }
 
     &:active:not([disabled]) {
