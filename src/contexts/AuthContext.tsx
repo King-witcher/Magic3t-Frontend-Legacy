@@ -1,8 +1,11 @@
-import { LoginRequest } from '@magic3t/backend'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { get, post } from '../services/server'
 import { SessionService } from '../services/SessionService'
 
+interface LoginRequest {
+  username: string
+  password: string
+}
 
 interface IProps {
   children: ReactNode
