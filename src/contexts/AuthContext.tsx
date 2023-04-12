@@ -58,7 +58,7 @@ export const SessionContextProvider = ({ children }: IProps) => {
   async function init() {
     const token = localStorage.getItem('token')
     if (token) {
-      let profile: ProfileData | null = null
+      const profile: ProfileData | null = null
       const isAuth = await sessionService.isAuthenticated(token)
 
       if (!isAuth) {
@@ -102,21 +102,23 @@ export const SessionContextProvider = ({ children }: IProps) => {
       setSession({
         isAuthenticated: false,
         token: null,
+        profile: null,
       })
     } else {
       console.log(token)
       
-      const info = await SessionService.findSession(token)
-      if (info.status === 200)
+      const auth = await sessionService.isAuthenticated(token)
+      if (auth)
         setSession({
           isAuthenticated: true,
           token,
-          profile: info.data,
+          profile: null,
         })
       else
         setSession({
           isAuthenticated: false,
           token: null,
+          profile: null,
         })
     }
   }

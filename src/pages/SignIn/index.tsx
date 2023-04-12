@@ -44,7 +44,7 @@ const SignInPage = () => {
         </>
         : <>
           <Title>
-            Olá, {session.profile.nickname}!
+            Olá, {session.profile?.nickname}!
           </Title>
           Esta página ainda não faz nada, apenas mostra que você está logado. Boa sorte tentando se deslogar agora.
         </>
