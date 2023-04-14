@@ -1,3 +1,8 @@
 node_modules
 yarn.lock
 .vscode
+dist
+build
+.env
+.env.*
+*.local
