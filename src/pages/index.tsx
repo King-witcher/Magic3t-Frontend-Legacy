@@ -15,6 +15,7 @@ const Home = () => {
           }}
         />
         <MenuOption
+          disabled
           title="Partida ranqueada"
           background="images/menu/elo.jpg"
           onClick={() => {
@@ -22,6 +23,7 @@ const Home = () => {
           }}
         />
         <MenuOption
+          disabled
           title="Personalizada"
           background="images/menu/schonfinkel.jpg"
           onClick={() => {

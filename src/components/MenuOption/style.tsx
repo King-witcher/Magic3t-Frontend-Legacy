@@ -1,8 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
-  cursor: pointer;
+interface ContainerProps {
+  disabled?: boolean
+}
+
+export const Container = styled.div<ContainerProps>`
+  position: relative;
   width: 25rem;
+  flex: 0 0 auto;
   height: 37.5rem;
   background: #e9e9e9;
   border: solid 1px #bbb;
@@ -11,12 +16,20 @@ export const Container = styled.div`
   flex-direction: column;
   overflow: hidden;
 
-  :hover {
-    background: white;
-    img {
-      filter: brightness(1.1);
-    }
-  }
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          filter: brightness(0.8) blur(10px);
+        `
+      : css`
+          :hover {
+            cursor: pointer;
+            background: white;
+            img {
+              filter: brightness(1.1);
+            }
+          }
+        `}
 
   .background {
     position: relative;

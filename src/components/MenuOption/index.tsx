@@ -4,13 +4,16 @@ interface MenuOptionProps {
   title?: string
   background?: string
   onClick?: () => void
+  disabled?: boolean
 }
 
-const MenuOption = ({ title, background, onClick }: MenuOptionProps) => {
+const MenuOption = ({ title, background, disabled }: MenuOptionProps) => {
   return (
-    <Container>
+    <Container disabled={disabled}>
       <div className="background">
-        {background && <img src={background} alt="Background" />}
+        {background && (
+          <img src={background} alt="Background" draggable="false" />
+        )}
       </div>
       <div className="footer">{title}</div>
     </Container>
