@@ -1,8 +1,12 @@
 import Header from '../components/Header'
 import MenuOption from '../components/MenuOption'
+import { useQueueContext } from '../contexts/QueueContext'
+import { QueueMode, queueService } from '../services/QueueService'
 import { Body, MainContainer } from './style'
 
 const Home = () => {
+  const { enterQueue } = useQueueContext()
+
   return (
     <MainContainer>
       <Header />
@@ -11,7 +15,7 @@ const Home = () => {
           title="Partida rápida"
           background="images/menu/galois.jpg"
           onClick={() => {
-            alert(1)
+            enterQueue(QueueMode.Casual)
           }}
         />
         <MenuOption

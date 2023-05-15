@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { sessionService } from '../services/SessionService'
 import { ProfileData } from '../utils/types'
 
@@ -11,15 +17,17 @@ interface IProps {
   children: ReactNode
 }
 
-export type SessionData = {
-  token: null
-  isAuthenticated: false
-  profile: null
-} | {
-  token: string
-  isAuthenticated: true
-  profile: ProfileData | null
-}
+export type SessionData =
+  | {
+      token: null
+      isAuthenticated: false
+      profile: null
+    }
+  | {
+      token: string
+      isAuthenticated: true
+      profile: ProfileData | null
+    }
 
 interface ISessionContextData {
   login(params: LoginRequest): Promise<void>
@@ -35,25 +43,25 @@ const initialSessionData: SessionData = {
   profile: null,
 }
 
-const SessionContext = createContext<ISessionContextData>({} as ISessionContextData)
+const SessionContext = createContext<ISessionContextData>(
+  {} as ISessionContextData
+)
 
 export const SessionContextProvider = ({ children }: IProps) => {
-
   const [session, setSession] = useState<SessionData>(initialSessionData)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   // Verifica a sessão relacionada ao token atual.
-  useEffect(() => { init() }, [])
+  useEffect(() => {
+    init()
+  }, [])
 
   // Sincroniza o token do localStorage com o estado
   useEffect(() => {
-    if (session.token)
-      localStorage.setItem('token', session.token)
-    else
-      localStorage.removeItem('token')
+    if (session.token) localStorage.setItem('token', session.token)
+    else localStorage.removeItem('token')
   }, [session.token])
-
 
   async function init() {
     const token = localStorage.getItem('token')
@@ -78,7 +86,6 @@ export const SessionContextProvider = ({ children }: IProps) => {
       })
 
       setIsLoading(false)
-
     } else {
       setIsLoading(false)
     }
@@ -105,8 +112,6 @@ export const SessionContextProvider = ({ children }: IProps) => {
         profile: null,
       })
     } else {
-      console.log(token)
-      
       const auth = await sessionService.isAuthenticated(token)
       if (auth)
         setSession({
@@ -128,7 +133,9 @@ export const SessionContextProvider = ({ children }: IProps) => {
   }
 
   return (
-    <SessionContext.Provider value={{ login: signIn, logout, session, isLoading, error }}>
+    <SessionContext.Provider
+      value={{ login: signIn, logout, session, isLoading, error }}
+    >
       {children}
     </SessionContext.Provider>
   )

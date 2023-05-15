@@ -2,7 +2,6 @@ import { Api } from '../ApiConfig'
 
 class SessionService {
   async signIn(username: string, password: string) {
-    console.log(username, password)
     const data = { username, password }
     const response = await Api.post('session', data)
     return response.data

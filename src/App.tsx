@@ -1,4 +1,5 @@
 import { SessionContextProvider } from './contexts/AuthContext'
+import { QueueContextProvider } from './contexts/QueueContext'
 import GlobalStyles from './GlobalStyles'
 import Home from './pages'
 import SignInPage from './pages/SignIn'
@@ -6,8 +7,10 @@ import SignInPage from './pages/SignIn'
 function App() {
   return (
     <SessionContextProvider>
-      <GlobalStyles />
-      <Home />
+      <QueueContextProvider>
+        <GlobalStyles />
+        <Home />
+      </QueueContextProvider>
     </SessionContextProvider>
   )
 }
