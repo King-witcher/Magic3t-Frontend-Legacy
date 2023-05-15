@@ -1,52 +1,27 @@
 import Header from '../components/Header'
-import MenuOption from '../components/MenuOption'
 import { useQueueContext } from '../contexts/QueueContext'
 import { useServerStatusContext } from '../contexts/ServerStatusContext'
-import { QueueMode, queueService } from '../services/QueueService'
 import { ServerStatus } from '../services/ServerStatusService'
-import { Body, MainContainer, UnavailableLabel } from './style'
+import Home from './Home'
+import Queue from './Queue'
+import { Center, MainContainer, UnavailableLabel } from './style'
 
-const Home = () => {
-  const { enterQueue } = useQueueContext()
+const Index = () => {
   const { serverStatus } = useServerStatusContext()
+  const { queueMode } = useQueueContext()
 
   return (
     <MainContainer>
       <Header />
-      <Body>
-        {serverStatus === ServerStatus.Available && (
-          <>
-            <MenuOption
-              title="Partida rápida"
-              background="images/menu/galois.jpg"
-              onClick={() => {
-                enterQueue(QueueMode.Casual)
-              }}
-            />
-            <MenuOption
-              disabled
-              title="Partida ranqueada"
-              background="images/menu/elo.jpg"
-              onClick={() => {
-                alert(1)
-              }}
-            />
-            <MenuOption
-              disabled
-              title="Personalizada"
-              background="images/menu/schonfinkel.jpg"
-              onClick={() => {
-                alert(1)
-              }}
-            />
-          </>
-        )}
-        {serverStatus === ServerStatus.Unavailable && (
+      {serverStatus === ServerStatus.Available &&
+        (queueMode ? <Queue /> : <Home />)}
+      {serverStatus === ServerStatus.Unavailable && (
+        <Center>
           <UnavailableLabel>Servidor indisponível no momento.</UnavailableLabel>
-        )}
-      </Body>
+        </Center>
+      )}
     </MainContainer>
   )
 }
 
-export default Home
+export default Index

@@ -82,4 +82,8 @@ export default createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
   }
+
+  body {
+    background-color: #e9e9e9;
+  }
 `

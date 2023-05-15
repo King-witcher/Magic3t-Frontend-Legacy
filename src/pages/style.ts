@@ -8,16 +8,14 @@ export const MainContainer = styled.div`
   overflow: hidden;
 `
 
-export const Body = styled.div`
-  flex: 1 0;
-  background-color: #d9d9d9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.875rem;
-`
-
 export const UnavailableLabel = styled.span`
   font-size: 1.3rem;
   color: #a00;
+`
+
+export const Center = styled.div`
+  flex: 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
