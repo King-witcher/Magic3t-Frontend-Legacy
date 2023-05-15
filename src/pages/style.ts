@@ -16,3 +16,8 @@ export const Body = styled.div`
   justify-content: center;
   gap: 1.875rem;
 `
+
+export const UnavailableLabel = styled.span`
+  font-size: 1.3rem;
+  color: #a00;
+`

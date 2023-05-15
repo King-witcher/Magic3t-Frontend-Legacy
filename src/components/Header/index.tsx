@@ -5,7 +5,7 @@ const Header = () => {
     <Container>
       <span className="logo">Magic3T</span>
       <span>
-        King Witcher |<span className="diamond">1820 SR</span>
+        Anônimo | <span className="silver">1500 SR</span>
       </span>
     </Container>
   )

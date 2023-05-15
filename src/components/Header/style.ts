@@ -20,6 +20,11 @@ export const Container = styled.header`
     letter-spacing: 0.05em;
   }
 
+  span.silver {
+    color: #999;
+    font-weight: 600;
+  }
+
   span.diamond {
     color: #0099FF;
     font-weight: 600;
