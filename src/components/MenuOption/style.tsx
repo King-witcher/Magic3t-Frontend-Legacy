@@ -49,6 +49,25 @@ export const Container = styled.div<ContainerProps>`
     }
   }
 
+  .black-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000060;
+  }
+
+  .timespan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
   .footer {
     flex: 0 0 4.125rem;
     display: flex;

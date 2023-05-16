@@ -4,7 +4,7 @@ import { useSessionContext } from './AuthContext'
 
 interface QueueContextData {
   queueMode: QueueMode | null
-  queueTime: number
+  queueEnterTime: number
   enterQueue: (gameMode: QueueMode) => Promise<void>
   exitQueue: () => Promise<void>
 }
@@ -18,14 +18,14 @@ export const QueueContext = createContext<QueueContextData>(
 )
 
 export const QueueContextProvider = ({ children }: QueueContextProps) => {
-  const [queueTime, setQueueTime] = useState(0)
+  const [queueEnterTime, setQueueEnterTime] = useState(0)
   const [queueMode, setQueueMode] = useState<QueueMode | null>(null)
 
   const { session } = useSessionContext()
 
   async function enterQueue(gameMode: QueueMode): Promise<void> {
     setQueueMode(gameMode)
-    setQueueTime(Date.now())
+    setQueueEnterTime(Date.now())
     await queueService.enterQueue(session.token, gameMode, (gameId: string) => {
       alert(gameId)
       setQueueMode(null)
@@ -39,7 +39,7 @@ export const QueueContextProvider = ({ children }: QueueContextProps) => {
 
   return (
     <QueueContext.Provider
-      value={{ queueMode, queueTime, enterQueue, exitQueue }}
+      value={{ queueMode, queueEnterTime, enterQueue, exitQueue }}
     >
       {children}
     </QueueContext.Provider>

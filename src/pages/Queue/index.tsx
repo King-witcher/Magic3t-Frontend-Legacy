@@ -8,7 +8,7 @@ import { Body } from './styles'
 
 const Queue = () => {
   const { serverStatus } = useServerStatusContext()
-  const { exitQueue, queueMode, queueTime } = useQueueContext()
+  const { exitQueue, queueMode, queueEnterTime: queueTime } = useQueueContext()
   const [time, setTime] = useState('0')
 
   useEffect(() => {
