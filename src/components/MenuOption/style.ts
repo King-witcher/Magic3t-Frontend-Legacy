@@ -4,6 +4,13 @@ interface ContainerProps {
   disabled?: boolean
 }
 
+export const OuterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+`
+
 export const Container = styled.div<ContainerProps>`
   position: relative;
   width: 25rem;
@@ -78,5 +85,24 @@ export const Container = styled.div<ContainerProps>`
     color: #444;
     font-size: 15px;
     font-family: sans-serif;
+  }
+`
+
+export const CancelButton = styled.div`
+  cursor: pointer;
+  height: 3.5rem;
+  background-color: #d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.3rem;
+  color: #fee;
+  border: solid 2px #a21;
+
+  :hover {
+    background-color: #f32;
+    border: solid 2px #c21;
   }
 `

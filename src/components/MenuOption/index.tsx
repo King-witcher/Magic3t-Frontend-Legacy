@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Container } from './style'
+import { CancelButton, Container, OuterContainer } from './style'
 import { useQueueContext } from '../../contexts/QueueContext'
 
 interface MenuOptionProps {
@@ -18,7 +18,7 @@ const MenuOption = ({
   searching,
 }: MenuOptionProps) => {
   const [timeText, setTimeText] = useState<string | null>(null)
-  const { queueEnterTime } = useQueueContext()
+  const { queueEnterTime, exitQueue } = useQueueContext()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,16 +35,21 @@ const MenuOption = ({
   }, [searching])
 
   return (
-    <Container disabled={disabled} onClick={onClick}>
-      <div className="background">
-        {background && (
-          <img src={background} alt="Background" draggable="false" />
-        )}
-      </div>
-      <div className="footer">{title}</div>
-      {searching && <div className="black-filter" />}
-      <span className="timespan">{timeText}</span>
-    </Container>
+    <OuterContainer>
+      <Container disabled={disabled} onClick={onClick}>
+        <div className="background">
+          {background && (
+            <img src={background} alt="Background" draggable="false" />
+          )}
+        </div>
+        <div className="footer">{title}</div>
+        {searching && <div className="black-filter" />}
+        <span className="timespan">{timeText}</span>
+      </Container>
+      {searching && (
+        <CancelButton onClick={exitQueue}>Sair da fila</CancelButton>
+      )}
+    </OuterContainer>
   )
 }
 
