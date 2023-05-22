@@ -1,7 +1,15 @@
 import { useGameContext } from '../../contexts/GameContext'
-import { Choice } from '../../utils/types'
+import { Choice, MatchResult } from '../../utils/types'
 import { useMemo } from 'react'
-import { Card, CardDeck, PlayerBanner, PlayerId } from './styles'
+import { Card, CardDeck, PlayerBanner as PB, PlayerId } from './styles'
+import PlayerBanner from '../../components/PlayerBanner'
+
+const oponentResultMap: { [key: string]: MatchResult } = {
+  victory: 'defeat',
+  defeat: 'victory',
+  draw: 'draw',
+  null: null,
+}
 
 export default function Game() {
   const { gameState, playerId, choose } = useGameContext()
@@ -22,22 +30,13 @@ export default function Game() {
   return (
     <div>
       <br />
-      <PlayerBanner style={{ top: '2rem' }}>
-        <div className="player-data">
-          <div className="nickname">
-            {gameState.oponent.nickname || 'Anônimo'}
-          </div>
-          <div className="rating">
-            {gameState.oponent.rating || '[Rating desconhecido]'}
-          </div>
-        </div>
-        <div
-          className="timer"
-          style={{ color: oponentTimeSecs === '0' ? '#f00' : '#333' }}
-        >
-          {oponentTimeSecs}
-        </div>
-      </PlayerBanner>
+      <PlayerBanner
+        nickname={gameState.oponent.nickname}
+        rating={gameState.oponent.rating}
+        time={gameState.oponent.remainingTime}
+        style={{ top: '2rem' }}
+        result={oponentResultMap[gameState.result || 'null']}
+      />
       <CardDeck style={{ top: '2rem' }}>
         {gameState.oponent.choices.map((choice) => {
           return <Card key={choice}>{choice}</Card>
@@ -62,15 +61,13 @@ export default function Game() {
           return <Card key={choice}>{choice}</Card>
         })}
       </CardDeck>
-      <PlayerBanner style={{ bottom: '2rem' }}>
-        <div className="player-data">
-          <div className="nickname">{gameState.player.nickname || 'Você'}</div>
-          <div className="rating">
-            {gameState.player.rating || '[Rating desconhecido]'}
-          </div>
-        </div>
-        <div className="timer">{playerTimeSecs}</div>
-      </PlayerBanner>
+      <PlayerBanner
+        nickname={gameState.player.nickname || 'Você'}
+        rating={gameState.player.rating}
+        time={gameState.player.remainingTime}
+        style={{ bottom: '2rem' }}
+        result={gameState.result}
+      />
       {import.meta.env.DEV && (
         <PlayerId>
           <span style={{ userSelect: 'none' }}>PlayerID: </span>
