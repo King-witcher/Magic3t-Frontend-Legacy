@@ -23,16 +23,23 @@ const MenuOption = ({
   useEffect(() => {
     const interval = setInterval(() => {
       if (searching) {
-        const queueTime = (Date.now() - queueEnterTime) / 1000
-        const timeSecs = queueTime % 60
-        const timeMins = queueTime / 60
-        const text = `${timeMins.toFixed(0)}:${timeSecs
-          .toFixed(0)
-          .padStart(2, '0')}`
-        setTimeText(text)
+        setTimeText(getTimeString(Date.now() - queueEnterTime))
       }
     }, 200)
   }, [searching])
+
+  function getTimeString(time: number) {
+    const hours = Math.floor(time / 3600000)
+    const mins = Math.floor(time / 60000) % 3600
+    const secs = Math.floor(time / 1000) % 60
+    if (hours) {
+      return `${hours}:${mins.toString().padStart(2, '0')}:${secs
+        .toString()
+        .padStart(2, '0')}`
+    } else {
+      return `${mins}:${secs.toString().padStart(2, '0')}`
+    }
+  }
 
   return (
     <OuterContainer>

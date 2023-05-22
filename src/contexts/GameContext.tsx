@@ -31,7 +31,8 @@ export function GameProvider({ children }: GameContextProps) {
   async function beginSyncState() {
     const state = await gameService.getGameState(playerId.current)
     setGameState(state)
-    refreshTimeoutId.current = setTimeout(beginSyncState, 20)
+    if (!state.finished)
+      refreshTimeoutId.current = setTimeout(beginSyncState, 20)
   }
 
   async function choose(value: Choice) {
