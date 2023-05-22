@@ -8,6 +8,12 @@ export const MainContainer = styled.div`
   overflow: hidden;
 `
 
+export const PageContainer = styled.div`
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+`
+
 export const UnavailableLabel = styled.span`
   font-size: 1.3rem;
   color: #a00;

@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
-
 export const Body = styled.div`
-  flex: 1 0;
+  height: 100%;
   background-color: #d9d9d9;
   display: flex;
   align-items: center;

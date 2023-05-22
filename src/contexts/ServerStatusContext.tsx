@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { QueueMode, queueService } from '../services/QueueService'
+import { GameMode, queueService } from '../services/QueueService'
 import { useSessionContext } from './AuthContext'
 import {
   ServerStatus,

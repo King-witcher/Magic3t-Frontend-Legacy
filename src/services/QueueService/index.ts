@@ -1,6 +1,6 @@
 import { Api } from '../ApiConfig'
 
-export enum QueueMode {
+export enum GameMode {
   Casual = 'casual',
   Paired = 'paired',
   Ranked = 'ranked',
@@ -10,22 +10,28 @@ class QueueService {
   private queueData: {
     queueId: string
     checkInterval: number
-    gameMode: QueueMode
+    gameMode: GameMode
     callback: (gameId: string) => void
   } | null = null
 
   async enterQueue(
     sessionId: string | null,
-    gameMode: QueueMode,
-    callback: (gameId: string) => void
+    gameMode: GameMode,
+    callback: (playerId: string) => void
   ) {
     if (this.queueData) return
 
-    if (gameMode === QueueMode.Casual) {
-      const response = await Api.post('queue/casual', {
-        gameMode,
-        sessionId,
-      })
+    if (gameMode === GameMode.Casual) {
+      const response = await Api.post(
+        'queue/casual',
+        {
+          gameMode,
+          sessionId,
+        },
+        {
+          validateStatus: undefined,
+        }
+      )
       this.queueData = {
         queueId: response.data.queueId,
         gameMode,
@@ -54,7 +60,7 @@ class QueueService {
     )
     const queueStatus = response.data
     if (queueStatus.queueStatus === 'matched') {
-      this.queueData.callback(queueStatus.gameId)
+      this.queueData.callback(queueStatus.playerId)
       clearInterval(this.queueData.checkInterval)
       this.queueData = null
     }

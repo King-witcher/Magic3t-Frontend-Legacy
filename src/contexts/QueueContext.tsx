@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from 'react'
-import { QueueMode, queueService } from '../services/QueueService'
+import { GameMode, queueService } from '../services/QueueService'
 import { useSessionContext } from './AuthContext'
+import { useGameContext } from './GameContext'
 
 interface QueueContextData {
-  queueMode: QueueMode | null
+  queueMode: GameMode | null
   queueEnterTime: number
-  enterQueue: (gameMode: QueueMode) => Promise<void>
+  enterQueue: (gameMode: GameMode) => Promise<void>
   exitQueue: () => Promise<void>
 }
 
@@ -19,17 +20,22 @@ export const QueueContext = createContext<QueueContextData>(
 
 export const QueueContextProvider = ({ children }: QueueContextProps) => {
   const [queueEnterTime, setQueueEnterTime] = useState(0)
-  const [queueMode, setQueueMode] = useState<QueueMode | null>(null)
+  const [queueMode, setQueueMode] = useState<GameMode | null>(null)
+  const { setGameByPlayerId } = useGameContext()
 
   const { session } = useSessionContext()
 
-  async function enterQueue(gameMode: QueueMode): Promise<void> {
+  async function enterQueue(gameMode: GameMode): Promise<void> {
+    await queueService.enterQueue(
+      session.token,
+      gameMode,
+      (playerId: string) => {
+        setGameByPlayerId(playerId)
+        setQueueMode(null)
+      }
+    )
     setQueueMode(gameMode)
     setQueueEnterTime(Date.now())
-    await queueService.enterQueue(session.token, gameMode, (gameId: string) => {
-      alert(gameId)
-      setQueueMode(null)
-    })
   }
 
   async function exitQueue(): Promise<void> {

@@ -1,12 +1,10 @@
 import MenuOption from '../../components/MenuOption'
 import { useQueueContext } from '../../contexts/QueueContext'
 import { useServerStatusContext } from '../../contexts/ServerStatusContext'
-import { QueueMode } from '../../services/QueueService'
-import { ServerStatus } from '../../services/ServerStatusService'
+import { GameMode } from '../../services/QueueService'
 import { Body } from './styles'
 
 const Home = () => {
-  const { serverStatus } = useServerStatusContext()
   const { enterQueue } = useQueueContext()
 
   return (
@@ -15,7 +13,7 @@ const Home = () => {
         title="Partida rápida"
         background="images/menu/galois.jpg"
         onClick={() => {
-          enterQueue(QueueMode.Casual)
+          enterQueue(GameMode.Casual)
         }}
       />
       <MenuOption
