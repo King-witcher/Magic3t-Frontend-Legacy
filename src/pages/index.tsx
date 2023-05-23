@@ -6,10 +6,16 @@ import { ServerStatus } from '../services/ServerStatusService'
 import Game from './Game'
 import Home from './Home'
 import Queue from './Queue'
-import { Center, MainContainer, PageContainer, UnavailableLabel } from './style'
+import {
+  Center,
+  MainContainer,
+  PageContainer,
+  Spinner,
+  UnavailableLabel,
+} from './style'
 
 const Index = () => {
-  const { serverStatus } = useServerStatusContext()
+  const { serverStatus, deploying } = useServerStatusContext()
   const { queueMode } = useQueueContext()
   const { activeGame } = useGameContext()
 
@@ -19,13 +25,24 @@ const Index = () => {
       <PageContainer>
         {serverStatus === ServerStatus.Available &&
           (queueMode ? <Queue /> : activeGame ? <Game /> : <Home />)}
-        {serverStatus === ServerStatus.Unavailable && (
-          <Center>
+        <Center>
+          {serverStatus === ServerStatus.Unavailable && (
             <UnavailableLabel>
               Servidor indisponível no momento.
             </UnavailableLabel>
-          </Center>
-        )}
+          )}
+          {deploying && (
+            <div
+              style={{ textAlign: 'center', color: '#444', fontSize: '0.9rem' }}
+            >
+              Parece que o servidor foi hibernado devido à inatividade e
+              precisaremos liga-lo novamente.
+              <br />
+              Isso pode demorar cerca de três minutos.
+            </div>
+          )}
+          {serverStatus === undefined && <Spinner />}
+        </Center>
       </PageContainer>
     </MainContainer>
   )

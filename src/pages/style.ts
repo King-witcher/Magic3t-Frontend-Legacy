@@ -20,8 +20,26 @@ export const UnavailableLabel = styled.span`
 `
 
 export const Center = styled.div`
-  flex: 1 0;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+`
+
+export const Spinner = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 5px transparent;
+  border-top-color: #333;
+  border-bottom-color: #333;
+  animation: rotate1 ease 700ms infinite;
+
+  @keyframes rotate1 {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `
