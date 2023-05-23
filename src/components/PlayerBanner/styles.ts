@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 interface ContainerProps {
   borderColor: string
@@ -11,9 +11,10 @@ export const Container = styled.div<ContainerProps>`
   border: solid 3px ${({ borderColor }) => borderColor};
   background-color: #fff;
   box-sizing: border-box;
-  background-color: ${({ borderColor }) => borderColor};
-  transition: all 1000ms linear;
-  gap: 3px;
+  background-color: #fff;
+  transition: border-color 700ms linear;
+  box-shadow: 0 0 1rem 0.5rem #00000020;
+  border-radius: 8px;
 
   .player-data {
     padding: 1.1rem 1.4rem;
@@ -21,7 +22,6 @@ export const Container = styled.div<ContainerProps>`
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    background-color: white;
     .nickname {
       font-size: 1.5rem;
     }
@@ -34,6 +34,5 @@ export const Container = styled.div<ContainerProps>`
     justify-content: center;
     font-size: 2rem;
     width: 7rem;
-    background-color: white;
   }
 `

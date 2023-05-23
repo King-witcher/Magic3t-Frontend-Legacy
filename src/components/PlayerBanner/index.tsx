@@ -17,10 +17,10 @@ export default function PlayerBanner({
   result,
 }: Props) {
   const colorMap = {
-    victory: '#194',
-    defeat: '#b13',
+    victory: '#0ecf5f',
+    defeat: '#e01c3a',
     draw: '#aaa',
-    null: '#aaa',
+    null: '#fff',
   }
 
   const timeColor = time > 5999 ? '#000' : '#b13'

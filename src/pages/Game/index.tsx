@@ -1,8 +1,10 @@
 import { useGameContext } from '../../contexts/GameContext'
 import { Choice, MatchResult } from '../../utils/types'
 import { useMemo } from 'react'
-import { Card, CardDeck, PlayerBanner as PB, PlayerId } from './styles'
+import { Button, Card, CardDeck, PlayerBanner as PB, PlayerId } from './styles'
 import PlayerBanner from '../../components/PlayerBanner'
+
+const allChoices: Choice[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 const oponentResultMap: { [key: string]: MatchResult } = {
   victory: 'defeat',
@@ -39,13 +41,23 @@ export default function Game() {
       />
       <CardDeck style={{ top: '2rem' }}>
         {gameState.oponent.choices.map((choice) => {
-          return <Card key={choice}>{choice}</Card>
+          const isTriple =
+            !!gameState.triple && gameState.triple.indexOf(choice) !== -1
+          return (
+            <Card className={isTriple ? 'winner-triple' : ''} key={choice}>
+              {choice}
+            </Card>
+          )
         })}
       </CardDeck>
       <CardDeck style={{ top: '50%', transform: 'translateY(-50%)' }}>
-        {available.map((choice) => {
+        {allChoices.map((choice) => {
+          let cn = ''
+          if (gameState.turn === 'player') cn += ' clickable'
+          if (available.indexOf(choice) === -1) cn += ' disappear'
           return (
             <Card
+              className={cn}
               key={choice}
               onClick={() => {
                 choose(choice as Choice)
@@ -58,7 +70,13 @@ export default function Game() {
       </CardDeck>
       <CardDeck style={{ bottom: '2rem' }}>
         {gameState.player.choices.map((choice) => {
-          return <Card key={choice}>{choice}</Card>
+          const isTriple =
+            !!gameState.triple && gameState.triple.indexOf(choice) !== -1
+          return (
+            <Card className={isTriple ? 'winner-triple' : ''} key={choice}>
+              {choice}
+            </Card>
+          )
         })}
       </CardDeck>
       <PlayerBanner
@@ -68,6 +86,9 @@ export default function Game() {
         style={{ bottom: '2rem' }}
         result={gameState.result}
       />
+
+      <Button style={{ bottom: '2rem', right: '2rem' }}>Voltar</Button>
+
       {import.meta.env.DEV && (
         <PlayerId>
           <span style={{ userSelect: 'none' }}>PlayerID: </span>

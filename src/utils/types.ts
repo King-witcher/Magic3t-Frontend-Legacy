@@ -20,4 +20,5 @@ export interface GameState {
   result: MatchResult
   turn: 'player' | 'oponent' | null
   finished: boolean
+  triple: [Choice, Choice, Choice]
 }

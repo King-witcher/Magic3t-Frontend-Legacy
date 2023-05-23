@@ -30,7 +30,7 @@ const MenuOption = ({
 
   function getTimeString(time: number) {
     const hours = Math.floor(time / 3600000)
-    const mins = Math.floor(time / 60000) % 3600
+    const mins = Math.floor(time / 60000) % 60
     const secs = Math.floor(time / 1000) % 60
     if (hours) {
       return `${hours}:${mins.toString().padStart(2, '0')}:${secs

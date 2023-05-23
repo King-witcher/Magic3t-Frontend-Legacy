@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.header`
   width: 100%;
   height: 3.75rem;
-  background: #f2f2f2;
+  background: #fff;
   display: block;
   margin: 0;
   display: flex;
@@ -11,7 +11,7 @@ export const Container = styled.header`
   justify-content: space-between;
   box-sizing: border-box;
   padding: 0 1.875rem;
-  border-bottom: solid 1px #bbb;
+  box-shadow: 0 0 10px 5px #00000010;
 
   span.logo {
     color: #036;
@@ -26,7 +26,7 @@ export const Container = styled.header`
   }
 
   span.diamond {
-    color: #0099FF;
+    color: #0099ff;
     font-weight: 600;
   }
 `

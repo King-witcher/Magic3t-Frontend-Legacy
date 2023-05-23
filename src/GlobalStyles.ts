@@ -84,6 +84,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: #e9e9e9;
+    background-color: #ddd;
+    user-select: none;
   }
 `
