@@ -1,6 +1,7 @@
 import { createContext, useRef, useState, useContext } from 'react'
 import { gameService } from '../services/GameService'
 import { Choice, GameState } from '../utils/types'
+import { all } from 'axios'
 
 interface GameContextProps {
   children: React.ReactNode
@@ -28,11 +29,18 @@ export function GameProvider({ children }: GameContextProps) {
     setIsActive(true)
   }
 
+  async function Delay(delay: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(resolve, delay)
+    })
+  }
+
   async function beginSyncState() {
+    const delayPromise = Delay(200)
     const state = await gameService.getGameState(playerId.current)
     setGameState(state)
-    if (!state.finished)
-      refreshTimeoutId.current = setTimeout(beginSyncState, 50)
+    await delayPromise
+    if (!state.finished) beginSyncState()
   }
 
   async function choose(value: Choice) {

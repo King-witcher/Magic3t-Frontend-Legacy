@@ -36,7 +36,7 @@ class QueueService {
         queueId: response.data.queueId,
         gameMode,
         callback,
-        checkInterval: setInterval(this.checkQueue.bind(this), 500),
+        checkInterval: setInterval(this.checkQueue.bind(this), 200),
       }
     }
   }
