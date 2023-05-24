@@ -16,22 +16,6 @@ const Home = () => {
           enterQueue(GameMode.Casual)
         }}
       />
-      <MenuOption
-        disabled
-        title="Partida ranqueada"
-        background="images/menu/elo.jpg"
-        onClick={() => {
-          alert(1)
-        }}
-      />
-      <MenuOption
-        disabled
-        title="Personalizada"
-        background="images/menu/schonfinkel.jpg"
-        onClick={() => {
-          alert(1)
-        }}
-      />
     </Body>
   )
 }

@@ -86,5 +86,8 @@ export default createGlobalStyle`
   body {
     background-color: #ddd;
     user-select: none;
+    background-image: radial-gradient(#d0d0d0 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position: -19px -19px;
   }
 `

@@ -13,15 +13,16 @@ export const OuterContainer = styled.div`
 
 export const Container = styled.div<ContainerProps>`
   position: relative;
+  border-radius: 8px;
   width: 25rem;
   flex: 0 0 auto;
   height: 37.5rem;
   background: #e9e9e9;
-  border: solid 1px #bbb;
   transition: 100ms ease-in-out;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 0 10px 5px #00000020;
 
   ${({ disabled }) =>
     disabled
@@ -31,10 +32,7 @@ export const Container = styled.div<ContainerProps>`
       : css`
           :hover {
             cursor: pointer;
-            background: white;
-            img {
-              filter: brightness(1.1);
-            }
+            transform: scale(1.02);
           }
         `}
 
@@ -83,7 +81,7 @@ export const Container = styled.div<ContainerProps>`
     border-top: solid 1px #bbb;
     box-sizing: border-box;
     color: #444;
-    font-size: 15px;
+    font-size: 1.4rem;
     font-family: sans-serif;
   }
 `
