@@ -45,6 +45,12 @@ export const Card = styled.div`
       transform: scale(0.9);
     }
   }
+
+  @media (max-width: 599px) {
+    font-size: 2rem;
+    width: 3rem;
+    height: 4rem;
+  }
 `
 
 export const CardDeck = styled.div`
@@ -54,6 +60,12 @@ export const CardDeck = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.875rem;
+
+  @media (max-width: 599px) {
+    gap: 0.3rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
 `
 
 export const PlayerId = styled.span`
@@ -114,5 +126,33 @@ export const Button = styled.div`
   :hover {
     transform: scale(1.03);
     box-shadow: 0 0 10px 4px #00000020;
+  }
+`
+
+export const MobileFlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem;
+  box-sizing: border-box;
+
+  .player-bar {
+    flex: 0 3rem;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 8px 1rem;
+    box-shadow: 0 0 6px 3px #00000020;
+  }
+
+  .center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
   }
 `

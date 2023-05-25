@@ -35,4 +35,8 @@ export const Container = styled.div<ContainerProps>`
     font-size: 2rem;
     width: 7rem;
   }
+
+  @media (max-width: 599px) {
+    left: 1rem;
+  }
 `
