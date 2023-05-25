@@ -4,6 +4,7 @@ export default createGlobalStyle`
   html {
     scroll-behavior: smooth;
     font-family: sans-serif;
+    overflow: hidden;
 
     @media (min-width: 600px) {
       font-size: 0.8333vw;
