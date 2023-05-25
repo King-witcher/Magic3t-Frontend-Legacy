@@ -50,6 +50,8 @@ export const Card = styled.div`
     font-size: 2rem;
     width: 3rem;
     height: 4rem;
+    margin-left: -1rem;
+    box-shadow: 0 0 6px 3px #00000030;
   }
 `
 
@@ -63,8 +65,7 @@ export const CardDeck = styled.div`
 
   @media (max-width: 599px) {
     gap: 0.3rem;
-    display: grid;
-    grid-template-columns: auto auto auto;
+    margin-right: -1rem;
   }
 `
 
