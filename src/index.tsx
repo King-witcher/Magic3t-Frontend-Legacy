@@ -4,6 +4,7 @@ import { ServerStatusContextProvider } from './contexts/ServerStatusContext'
 import { SessionContextProvider } from './contexts/AuthContext'
 import { QueueContextProvider } from './contexts/QueueContext'
 import { GameProvider } from './contexts/GameContext'
+import { ModalProvider } from './contexts/ModalContext'
 
 const root = document.getElementById('root') as HTMLElement
 ReactDOM.createRoot(root).render(
@@ -11,7 +12,9 @@ ReactDOM.createRoot(root).render(
     <SessionContextProvider>
       <GameProvider>
         <QueueContextProvider>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </QueueContextProvider>
       </GameProvider>
     </SessionContextProvider>
