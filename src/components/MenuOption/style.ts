@@ -13,7 +13,7 @@ export const OuterContainer = styled.div`
 
 export const Container = styled.div<ContainerProps>`
   position: relative;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   width: 25rem;
   flex: 0 0 auto;
   height: 37.5rem;
@@ -84,23 +84,42 @@ export const Container = styled.div<ContainerProps>`
     font-size: 1.4rem;
     font-family: sans-serif;
   }
+
+  @media (max-width: 599px) {
+    width: 20rem;
+    height: 22rem;
+
+    .footer {
+      font-size: 1.2rem;
+      flex: 0 0 3.5rem;
+    }
+
+    .timespan {
+      font-size: 4rem;
+    }
+  }
 `
 
 export const CancelButton = styled.div`
   cursor: pointer;
   height: 3.5rem;
-  background-color: #d32;
+  background-color: #eee;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
   font-size: 1.3rem;
-  color: #fee;
-  border: solid 2px #a21;
+  color: #000;
+  box-shadow: 0 0 10px 5px #00000020;
+  transition: transform 100ms linear;
 
   :hover {
-    background-color: #f32;
-    border: solid 2px #c21;
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 599px) {
+    border-radius: 0.8rem;
   }
 `

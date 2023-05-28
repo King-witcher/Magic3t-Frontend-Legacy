@@ -58,6 +58,11 @@ class QueueService {
     const response = await Api.get(
       `queue/${this.queueData.gameMode}/${this.queueData.queueId}`
     )
+
+    if (response.status !== 200) {
+      this.queueData.callback('1234')
+    }
+
     const queueStatus = response.data
     if (queueStatus.queueStatus === 'matched') {
       this.queueData.callback(queueStatus.playerId)
