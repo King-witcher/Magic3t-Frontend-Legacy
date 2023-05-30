@@ -70,15 +70,26 @@ export const CardDeck = styled.div`
 `
 
 export const ChatBox = styled.div`
-  width: 16.25rem;
-  height: 6.25rem;
-  background-color: #ccc;
+  width: 20rem;
+  height: 15rem;
+  background-color: #fff;
   position: absolute;
   left: 2rem;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 1rem;
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 `
 
 export const PlayerId = styled.span`

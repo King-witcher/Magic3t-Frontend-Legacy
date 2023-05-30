@@ -9,6 +9,10 @@ export const MainContainer = styled.div`
 `
 
 export const PageContainer = styled.div`
+  background-color: #ddd;
+  background-image: radial-gradient(#d0d0d0 1px, transparent 0);
+  background-size: 20px 20px;
+  background-position: -19px -19px;
   overflow: hidden;
   position: relative;
   flex: 1;

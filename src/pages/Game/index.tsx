@@ -79,14 +79,16 @@ export default function Game() {
           })}
         </CardDeck>
         <ChatBox>
-          {gameState.chat.map((message, index) => {
-            return (
-              <div key={index}>
-                <span className="nickname">{message.player}</span>:{' '}
-                {message.content}
-              </div>
-            )
-          })}
+          <div className="messages">
+            {gameState.chat.map((message, index) => {
+              return (
+                <div key={index}>
+                  <span className="nickname">{message.player}</span>:{' '}
+                  {message.content}
+                </div>
+              )
+            })}
+          </div>
           <Input
             type="text"
             onKeyDown={(e) => {
