@@ -1,15 +1,17 @@
 import { useGameContext } from '../../contexts/GameContext'
 import { Choice, MatchResult } from '../../utils/types'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Button,
   Card,
   CardDeck,
+  ChatBox,
   MobileFlexContainer,
   PlayerBanner as PB,
   PlayerId,
 } from './styles'
-import PlayerBanner from '../../components/PlayerBanner'
+import PlayerBanner from './PlayerBanner'
+import { Input } from '@chakra-ui/react'
 
 const allChoices: Choice[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -21,7 +23,7 @@ const oponentResultMap: { [key: string]: MatchResult } = {
 }
 
 export default function Game() {
-  const { gameState, playerId, choose } = useGameContext()
+  const { gameState, playerId, choose, sendMessage } = useGameContext()
   const available = useMemo(
     () =>
       [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((value) => {
@@ -32,6 +34,7 @@ export default function Game() {
       }),
     [gameState]
   )
+  const [message, setMessage] = useState('')
 
   const playerTimeSecs = (gameState.player.remainingTime / 1000).toFixed(0)
   const oponentTimeSecs = (gameState.oponent.remainingTime / 1000).toFixed(0)
@@ -75,6 +78,29 @@ export default function Game() {
             )
           })}
         </CardDeck>
+        <ChatBox>
+          {gameState.chat.map((message, index) => {
+            return (
+              <div key={index}>
+                <span className="nickname">{message.player}</span>:{' '}
+                {message.content}
+              </div>
+            )
+          })}
+          <Input
+            type="text"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                sendMessage(message)
+                setMessage('')
+              }
+            }}
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value)
+            }}
+          />
+        </ChatBox>
         <CardDeck style={{ bottom: '2rem' }}>
           {gameState.player.choices.map((choice) => {
             const isTriple =

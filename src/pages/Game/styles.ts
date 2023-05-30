@@ -69,6 +69,18 @@ export const CardDeck = styled.div`
   }
 `
 
+export const ChatBox = styled.div`
+  width: 16.25rem;
+  height: 6.25rem;
+  background-color: #ccc;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+`
+
 export const PlayerId = styled.span`
   font-size: 12px;
   position: absolute;
@@ -116,11 +128,11 @@ export const Button = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
-  width: 6.25rem;
-  padding: 1.5rem 4rem;
+  width: 5.25rem;
+  padding: 1rem 3rem;
   width: 15rem;
   border-radius: 8px;
-  font-size: 2rem;
+  font-size: 1.4rem;
   box-shadow: 0 0 6px 3px #00000020;
   transition: all 100ms linear;
 

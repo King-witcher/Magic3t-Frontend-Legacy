@@ -13,6 +13,7 @@ export interface GameContextData {
   playerId: string
   setGameByPlayerId(playerId: string): Promise<void>
   choose(choice: Choice): Promise<void>
+  sendMessage(message: string): Promise<void>
 }
 
 const GameContext = createContext<GameContextData>({} as GameContextData)
@@ -29,10 +30,14 @@ export function GameProvider({ children }: GameContextProps) {
     setIsActive(true)
   }
 
-  async function Delay(delay: number): Promise<void> {
+  function Delay(delay: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(resolve, delay)
     })
+  }
+
+  async function sendMessage(content: string): Promise<void> {
+    await gameService.sendMessage(playerId.current, content)
   }
 
   async function beginSyncState() {
@@ -55,6 +60,7 @@ export function GameProvider({ children }: GameContextProps) {
         setGameByPlayerId,
         playerId: playerId.current,
         choose,
+        sendMessage,
       }}
     >
       {children}

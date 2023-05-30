@@ -5,6 +5,7 @@ import { SessionContextProvider } from './contexts/AuthContext'
 import { QueueContextProvider } from './contexts/QueueContext'
 import { GameProvider } from './contexts/GameContext'
 import { ModalProvider } from './contexts/ModalContext'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const root = document.getElementById('root') as HTMLElement
 ReactDOM.createRoot(root).render(
@@ -12,9 +13,11 @@ ReactDOM.createRoot(root).render(
     <SessionContextProvider>
       <GameProvider>
         <QueueContextProvider>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
+          <ChakraProvider>
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </ChakraProvider>
         </QueueContextProvider>
       </GameProvider>
     </SessionContextProvider>

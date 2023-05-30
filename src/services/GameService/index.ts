@@ -18,6 +18,15 @@ export class GameService {
     if (response.status >= 300 || response.status < 200)
       throw new Error(response.data)
   }
+
+  async sendMessage(playerId: string, content: string) {
+    const response = await Api.post(`game/${playerId}/chat`, {
+      content,
+    })
+
+    if (response.status >= 300 || response.status < 200)
+      throw new Error(response.data)
+  }
 }
 
 export const gameService = new GameService()
