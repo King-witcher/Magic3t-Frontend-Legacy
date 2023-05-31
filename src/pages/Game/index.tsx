@@ -5,13 +5,13 @@ import {
   Button,
   Card,
   CardDeck,
-  ChatBox,
+  ChatBoxOld,
   MobileFlexContainer,
-  PlayerBanner as PB,
   PlayerId,
 } from './styles'
-import PlayerBanner from './PlayerBanner'
+import PlayerBanner from './components/PlayerBanner'
 import { Input } from '@chakra-ui/react'
+import ChatBox from './components/ChatBox'
 
 const allChoices: Choice[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -23,7 +23,7 @@ const oponentResultMap: { [key: string]: MatchResult } = {
 }
 
 export default function Game() {
-  const { gameState, playerId, choose, sendMessage } = useGameContext()
+  const { gameState, playerId, choose } = useGameContext()
   const available = useMemo(
     () =>
       [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((value) => {
@@ -34,10 +34,6 @@ export default function Game() {
       }),
     [gameState]
   )
-  const [message, setMessage] = useState('')
-
-  const playerTimeSecs = (gameState.player.remainingTime / 1000).toFixed(0)
-  const oponentTimeSecs = (gameState.oponent.remainingTime / 1000).toFixed(0)
 
   if (window.innerWidth >= 600)
     return (
@@ -78,31 +74,13 @@ export default function Game() {
             )
           })}
         </CardDeck>
-        <ChatBox>
-          <div className="messages">
-            {gameState.chat.map((message, index) => {
-              return (
-                <div key={index}>
-                  <span className="nickname">{message.player}</span>:{' '}
-                  {message.content}
-                </div>
-              )
-            })}
-          </div>
-          <Input
-            type="text"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                sendMessage(message)
-                setMessage('')
-              }
-            }}
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value)
-            }}
-          />
-        </ChatBox>
+        <ChatBox
+          messages={gameState.chat}
+          pos="absolute"
+          top="50%"
+          left="2rem"
+          transform="translateY(-50%)"
+        ></ChatBox>
         <CardDeck style={{ bottom: '2rem' }}>
           {gameState.player.choices.map((choice) => {
             const isTriple =

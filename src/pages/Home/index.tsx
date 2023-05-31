@@ -1,14 +1,13 @@
+import { Flex } from '@chakra-ui/layout'
 import MenuOption from '../../components/MenuOption'
 import { useQueueContext } from '../../contexts/QueueContext'
-import { useServerStatusContext } from '../../contexts/ServerStatusContext'
 import { GameMode } from '../../services/QueueService'
-import { Body } from './styles'
 
 const Home = () => {
   const { enterQueue } = useQueueContext()
 
   return (
-    <Body>
+    <Flex alignItems="center" justifyContent="center" w="100%" h="100%">
       <MenuOption
         title="Partida rápida"
         background="images/menu/galois.jpg"
@@ -16,7 +15,7 @@ const Home = () => {
           enterQueue(GameMode.Casual)
         }}
       />
-    </Body>
+    </Flex>
   )
 }
 

@@ -1,13 +1,5 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100dvh;
-  overflow: hidden;
-`
-
 export const PageContainer = styled.div`
   background-color: #ddd;
   background-image: radial-gradient(#d0d0d0 1px, transparent 0);
@@ -21,15 +13,6 @@ export const PageContainer = styled.div`
 export const UnavailableLabel = styled.span`
   font-size: 1.3rem;
   color: #a00;
-`
-
-export const Center = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 2rem;
 `
 
 export const Spinner = styled.div`

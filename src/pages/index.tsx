@@ -1,3 +1,4 @@
+import { Center, Flex } from '@chakra-ui/react'
 import Header from '../components/Header'
 import { useGameContext } from '../contexts/GameContext'
 import { useQueueContext } from '../contexts/QueueContext'
@@ -6,13 +7,7 @@ import { ServerStatus } from '../services/ServerStatusService'
 import Game from './Game'
 import Home from './Home'
 import Queue from './Queue'
-import {
-  Center,
-  MainContainer,
-  PageContainer,
-  Spinner,
-  UnavailableLabel,
-} from './style'
+import { PageContainer, Spinner, UnavailableLabel } from './style'
 
 const Index = () => {
   const { serverStatus, deploying } = useServerStatusContext()
@@ -20,7 +15,7 @@ const Index = () => {
   const { activeGame } = useGameContext()
 
   return (
-    <MainContainer>
+    <Flex direction="column" w="100vw" h="100dvh">
       <Header />
       <PageContainer>
         {serverStatus === ServerStatus.Available &&
@@ -35,16 +30,16 @@ const Index = () => {
             <div
               style={{ textAlign: 'center', color: '#444', fontSize: '0.9rem' }}
             >
-              Parece que o servidor foi hibernado devido à inatividade e
-              precisaremos liga-lo novamente.
+              Parece que o servidor foi hibernado devido à inatividade e está
+              sendo religado.
               <br />
-              Isso pode demorar cerca de três minutos.
+              Isso geralmente leva cerca de três minutos.
             </div>
           )}
           {serverStatus === undefined && <Spinner />}
         </Center>
       </PageContainer>
-    </MainContainer>
+    </Flex>
   )
 }
 

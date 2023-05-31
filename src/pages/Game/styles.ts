@@ -69,7 +69,7 @@ export const CardDeck = styled.div`
   }
 `
 
-export const ChatBox = styled.div`
+export const ChatBoxOld = styled.div`
   width: 20rem;
   height: 15rem;
   background-color: #fff;
