@@ -9,7 +9,7 @@ interface Props {
   style?: CSSProperties
 }
 
-export default function PlayerBanner({
+export default function DesktopPlayerBanner({
   nickname,
   rating,
   time,

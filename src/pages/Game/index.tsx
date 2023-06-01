@@ -9,9 +9,10 @@ import {
   MobileFlexContainer,
   PlayerId,
 } from './styles'
-import PlayerBanner from './components/PlayerBanner'
+import DesktopPlayerBanner from './components/PlayerBanner/Desktop'
 import { Input } from '@chakra-ui/react'
 import ChatBox from './components/ChatBox'
+import MobilePlayerBanner from './components/PlayerBanner/Mobile'
 
 const allChoices: Choice[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -38,7 +39,7 @@ export default function Game() {
   if (window.innerWidth >= 600)
     return (
       <div>
-        <PlayerBanner
+        <DesktopPlayerBanner
           nickname={gameState.oponent.nickname}
           rating={gameState.oponent.rating}
           time={gameState.oponent.remainingTime}
@@ -92,7 +93,7 @@ export default function Game() {
             )
           })}
         </CardDeck>
-        <PlayerBanner
+        <DesktopPlayerBanner
           nickname={gameState.player.nickname || 'Você'}
           rating={gameState.player.rating}
           time={gameState.player.remainingTime}
@@ -113,20 +114,13 @@ export default function Game() {
   else
     return (
       <MobileFlexContainer>
-        <div
-          className="player-bar"
-          style={{
-            border:
-              gameState.result === 'defeat'
-                ? 'solid 3px #0ecf5f'
-                : gameState.result === 'victory'
-                ? 'solid 3px #e01c3a'
-                : 'none',
-          }}
-        >
-          {gameState.oponent.nickname || 'Anônimo'} |{' '}
-          {gameState.oponent.rating || '--'}
-        </div>
+        <MobilePlayerBanner
+          nickname={gameState.oponent.nickname || 'Anônimo'}
+          rating={gameState.oponent.rating}
+          time={gameState.oponent.remainingTime}
+          style={{ top: '2rem' }}
+          result={oponentResultMap[gameState.result || 'null']}
+        />
         <div className="center">
           <CardDeck style={{ top: '1rem' }}>
             {gameState.oponent.choices.map((choice) => {
@@ -169,20 +163,13 @@ export default function Game() {
             })}
           </CardDeck>
         </div>
-        <div
-          className="player-bar"
-          style={{
-            border:
-              gameState.result === 'victory'
-                ? 'solid 3px #0ecf5f'
-                : gameState.result === 'defeat'
-                ? 'solid 3px #e01c3a'
-                : 'none',
-          }}
-        >
-          {gameState.player.nickname || 'Você'} |{' '}
-          {gameState.player.rating || '--'}
-        </div>
+        <MobilePlayerBanner
+          nickname={gameState.player.nickname || 'Você'}
+          rating={gameState.player.rating}
+          time={gameState.player.remainingTime}
+          style={{ top: '2rem' }}
+          result={gameState.result}
+        />
 
         {import.meta.env.DEV && (
           <PlayerId>
