@@ -24,13 +24,13 @@ const oponentResultMap: { [key: string]: MatchResult } = {
 }
 
 export default function Game() {
-  const { gameState, playerId, choose } = useGameContext()
+  const { gameState, makeChoice } = useGameContext()
   const available = useMemo(
     () =>
       [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((value) => {
         return (
-          gameState.player.choices.indexOf(value as Choice) === -1 &&
-          gameState.oponent.choices.indexOf(value as Choice) === -1
+          gameState?.player.choices.indexOf(value as Choice) === -1 &&
+          gameState?.oponent.choices.indexOf(value as Choice) === -1
         )
       }),
     [gameState]
@@ -67,7 +67,7 @@ export default function Game() {
                 className={cn}
                 key={choice}
                 onClick={() => {
-                  choose(choice as Choice)
+                  makeChoice(choice as Choice)
                 }}
               >
                 {choice}
@@ -106,7 +106,7 @@ export default function Game() {
         {import.meta.env.DEV && (
           <PlayerId>
             <span style={{ userSelect: 'none' }}>PlayerID: </span>
-            {playerId}
+            {/* {playerId} */}
           </PlayerId>
         )}
       </div>
@@ -143,7 +143,7 @@ export default function Game() {
                   className={cn}
                   key={choice}
                   onClick={() => {
-                    choose(choice as Choice)
+                    makeChoice(choice as Choice)
                   }}
                 >
                   {choice}
@@ -174,7 +174,7 @@ export default function Game() {
         {import.meta.env.DEV && (
           <PlayerId>
             <span style={{ userSelect: 'none' }}>PlayerID: </span>
-            {playerId}
+            {/* {playerId} */}
           </PlayerId>
         )}
       </MobileFlexContainer>

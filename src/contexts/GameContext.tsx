@@ -1,18 +1,22 @@
-import { createContext, useRef, useState, useContext } from 'react'
-import { gameService } from '../services/GameService'
+import { createContext, useRef, useState, useContext, useEffect } from 'react'
 import { Choice, GameState } from '../utils/types'
-import { all } from 'axios'
+import { Socket, io } from 'socket.io-client'
 
 interface GameContextProps {
   children: React.ReactNode
 }
 
+type GameState {
+  playerChoices: Choice[]
+  oponentChoices: Choice[]
+}
+
 export interface GameContextData {
   gameState: GameState
+  isConnected: boolean
   activeGame: boolean
-  playerId: string
-  setGameByPlayerId(playerId: string): Promise<void>
-  choose(choice: Choice): Promise<void>
+  connectGame(token: string): Promise<void>
+  makeChoice(choice: Choice): Promise<void>
   sendMessage(message: string): Promise<void>
 }
 
@@ -21,45 +25,44 @@ const GameContext = createContext<GameContextData>({} as GameContextData)
 export function GameProvider({ children }: GameContextProps) {
   const [gameState, setGameState] = useState<GameState>({} as GameState)
   const [isActive, setIsActive] = useState(false)
-  const playerId = useRef<string>('')
-  const refreshTimeoutId = useRef<number>(0)
+  const socketRef = useRef<Socket>()
 
-  async function setGameByPlayerId(value: string) {
-    playerId.current = value
-    await beginSyncState()
+  async function connectGame(token: string) {
+    const client = io(import.meta.env.VITE_API_URL + '/game', {
+      auth: { token },
+    })
+    socketRef.current = client
     setIsActive(true)
-  }
-
-  function Delay(delay: number): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(resolve, delay)
+    client.on('disconnect', () => {
+      socketRef.current = undefined
+      setIsActive(false)
+    })
+    client.on('gameState', (state) => {
+      setGameState(state)
     })
   }
 
-  async function sendMessage(content: string): Promise<void> {
-    await gameService.sendMessage(playerId.current, content)
+  async function makeChoice(choice: Choice) {
+    if (!socketRef.current) return
+    socketRef.current.emit('choice', choice)
   }
 
-  async function beginSyncState() {
-    const delayPromise = Delay(200)
-    const state = await gameService.getGameState(playerId.current)
-    setGameState(state)
-    await delayPromise
-    if (!state.finished) beginSyncState()
-  }
+  async function sendMessage(): Promise<void> {}
 
   async function choose(value: Choice) {
-    await gameService.choose(playerId.current, value)
+    //await gameService.choose(playerId.current, value)
   }
+
+  useEffect(() => {}, [])
 
   return (
     <GameContext.Provider
       value={{
         gameState: gameState,
         activeGame: isActive,
-        setGameByPlayerId,
-        playerId: playerId.current,
-        choose,
+        isConnected: false,
+        connectGame,
+        makeChoice,
         sendMessage,
       }}
     >

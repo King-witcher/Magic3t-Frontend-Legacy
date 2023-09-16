@@ -21,19 +21,16 @@ export const QueueContext = createContext<QueueContextData>(
 export const QueueContextProvider = ({ children }: QueueContextProps) => {
   const [queueEnterTime, setQueueEnterTime] = useState(0)
   const [queueMode, setQueueMode] = useState<GameMode | null>(null)
-  const { setGameByPlayerId } = useGameContext()
+  const { connectGame } = useGameContext()
 
   const { session } = useSessionContext()
 
   async function enterQueue(gameMode: GameMode): Promise<void> {
-    await queueService.enterQueue(
-      session.token,
-      gameMode,
-      (playerId: string) => {
-        setGameByPlayerId(playerId)
-        setQueueMode(null)
-      }
-    )
+    await queueService.enterQueue(session.token, gameMode, (token: string) => {
+      console.log(token)
+      connectGame(token)
+      setQueueMode(null)
+    })
     setQueueMode(gameMode)
     setQueueEnterTime(Date.now())
   }
